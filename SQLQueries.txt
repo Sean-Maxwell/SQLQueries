@@ -1,0 +1,112 @@
+USE sakila;
+/*Sakila Answers 1-11*/
+SELECT * FROM sakila.actor;
+
+SELECT * from sakila.actor
+WHERE first_name = 'John';
+
+SELECT * from sakila.actor
+WHERE last_name = 'Neeson';
+
+SELECT * from sakila.actor
+WHERE actor_id = /10;
+
+SELECT * from sakila.film
+WHERE film_id = 100;
+
+SELECT * from sakila.film
+WHERE rating = 'R';
+
+SELECT * from sakila.film
+WHERE rating != 'R';
+
+SELECT * from sakila.film_actor; /* deleted scenes*/
+
+SELECT DISTINCT last_name from sakila.actor;
+
+SELECT SUM(actor_id)  from sakila.film_actor
+WHERE ;
+
+/*World Database exercises 1-4*/
+SELECT * FROM world.city;
+SELECT * FROM world.country;
+SELECT * FROM world.countrylanguage;
+
+SELECT COUNT(district) FROM world.city;
+
+SELECT SUM(population) FROM world.city;
+
+SELECT AVG(LifeExpectancy) FROM world.country
+where code = 'ARG';
+
+SELECT * FROM Name = "Spain"
+INNER JOIN 
+
+SELECT COUNT(district) FROM world.country
+WHERE NAME = 'China';
+
+===================================================================================================================================================================================
+Below is some extra practice on inner joins, views and nested queries in my spare time. I fell behind with an issue inserting tables into the database earlier on. 
+I couldnt recall how to use some of the commands such as inner join,views at the time of the exercise above. 
+===================================================================================================================================================================================
+
+
+USE test_db;
+
+SELECT * FROM customer;
+SELECT * FROM product;
+SELECT * FROM order_table;
+
+/* Selecting the customerID */
+SELECT customerID, first_name
+FROM customer
+WHERE customerID = (SELECT customerID 
+	FROM order_table
+	WHERE orderID = 5);
+
+SELECT productID, decription, stock
+FROM product
+WHERE productID = (SELECT productID
+	FROM order_table
+	WHERE orderID = 4
+	);
+
+SELECT productID, date_of_order, email
+FROM order_table
+WHERE orderID = (SELECT productID 
+	FROM product
+	WHERE productID = 4);
+
+CREATE VIEW result_encap_query
+AS
+	SELECT first_name , customerID
+	FROM customer
+	WHERE first_name ='James'
+;
+
+SELECT * FROM result_encap_query;
+
+SELECT *
+FROM order_table
+WHERE customerID = (SELECT customerID
+	FROM customer
+	WHERE first_name like 'James');
+
+
+/*Inner joins*/
+SELECT *
+FROM customer c
+INNER JOIN product p ON c.customerID=p.productID;
+
+SELECT c.first_name, p.customerID, c.email,p.price
+FROM customer c
+INNER JOIN product p ON c.customerID=p.customerID;
+
+SELECT c.first_name, p.customerID, c.email,p.price
+FROM customer c
+LEFT OUTER JOIN product p ON c.customerID=p.customerID;
+
+
+
+
+
